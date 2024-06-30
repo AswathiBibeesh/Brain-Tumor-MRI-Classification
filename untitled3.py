@@ -124,3 +124,37 @@ vgg16_history = compile_and_train(vgg16, train_images, train_labels, val_images,
 
 resnet50 = create_resnet50()
 resnet50_history = compile_and_train(resnet50, train_images, train_labels, val_images, val_labels)
+
+def evaluate_model(model, test_images, test_labels):
+    results = model.evaluate(test_images, test_labels)
+    print(f"Test Loss: {results[0]}, Test Accuracy: {results[1]}")
+
+def plot_history(histories, titles):
+    plt.figure(figsize=(20, 10))
+    for i, history in enumerate(histories):
+        plt.subplot(2, len(histories) // 2, i + 1)
+        plt.plot(history.history['accuracy'], label='train_accuracy')
+        plt.plot(history.history['val_accuracy'], label='val_accuracy')
+        plt.title(titles[i])
+        plt.xlabel('Epochs')
+        plt.ylabel('Accuracy')
+        plt.legend()
+    plt.show()
+
+# Plot the training history
+histories = [resnet_history, vgg16_history, inception_history, vgg16_scratch_history]
+titles = ['ResNet50', 'VGG16', 'InceptionV3', 'VGG16 (Scratch)']
+plot_history(histories, titles)
+
+# Evaluate models
+print("ResNet50 Performance:")
+evaluate_model(resnet_model, test_images, test_labels)
+
+print("VGG16 Performance:")
+evaluate_model(vgg16_model, test_images, test_labels)
+
+print("InceptionV3 Performance:")
+evaluate_model(inception_model, test_images, test_labels)
+
+print("VGG16 (Scratch) Performance:")
+evaluate_model(vgg16_scratch_model, test_images, test_labels)
