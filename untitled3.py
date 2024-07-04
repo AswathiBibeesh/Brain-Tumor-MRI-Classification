@@ -141,20 +141,3 @@ def plot_history(histories, titles):
         plt.legend()
     plt.show()
 
-# Plot the training history
-histories = [resnet_history, vgg16_history, inception_history, vgg16_scratch_history]
-titles = ['ResNet50', 'VGG16', 'InceptionV3', 'VGG16 (Scratch)']
-plot_history(histories, titles)
-
-# Evaluate models
-print("ResNet50 Performance:")
-evaluate_model(resnet_model, test_images, test_labels)
-
-print("VGG16 Performance:")
-evaluate_model(vgg16_model, test_images, test_labels)
-
-print("InceptionV3 Performance:")
-evaluate_model(inception_model, test_images, test_labels)
-
-print("VGG16 (Scratch) Performance:")
-evaluate_model(vgg16_scratch_model, test_images, test_labels)
