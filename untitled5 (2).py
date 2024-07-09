@@ -63,7 +63,7 @@ test_datagen = ImageDataGenerator(rescale=1./255)
 # Training data generator
 train_generator = train_datagen.flow_from_directory(
     train_data_dir,
-    target_size=(150, 150),  # resize images to a smaller size
+    target_size=(224, 224),  # resize images to a smaller size
     batch_size=16,  # reduce batch size
     class_mode='categorical'
 )
@@ -71,7 +71,7 @@ train_generator = train_datagen.flow_from_directory(
 # Testing data generator
 test_generator = test_datagen.flow_from_directory(
     test_data_dir,
-    target_size=(150, 150),  # resize images to a smaller size
+    target_size=(224, 224),  # resize images to a smaller size
     batch_size=16,  # reduce batch size
     class_mode='categorical'
 )
@@ -101,9 +101,9 @@ def create_model(base_model):
 """Create Model Function"""
 
 # Instantiate models
-vgg16_base = VGG16(weights='imagenet', include_top=False, input_shape=(150, 150, 3))
-inception_base = InceptionV3(weights='imagenet', include_top=False, input_shape=(150, 150, 3))
-resnet_base = ResNet50(weights='imagenet', include_top=False, input_shape=(150, 150, 3))
+vgg16_base = VGG16(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+inception_base = InceptionV3(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+resnet_base = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
 vgg16_model = create_model(vgg16_base)
 inception_model = create_model(inception_base)
@@ -152,5 +152,3 @@ history_resnet = resnet_model.fit(train_generator,
                                   validation_data=test_generator,
                                   validation_steps=len(test_generator),
                                   verbose=1)
-
-"""Train Models"""
